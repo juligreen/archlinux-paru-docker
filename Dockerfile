@@ -13,10 +13,10 @@ RUN echo '[multilib]' >> /etc/pacman.conf && \
     mkdir /build && \
     chown -R aur:aur /build && \
     cd /build && \
-    sudo -u aur git clone --depth 1 https://aur.archlinux.org/yay.git && \
-    cd yay && \
+    sudo -u aur git clone --depth 1 https://aur.archlinux.org/paru.git && \
+    cd paru && \
     sudo -u aur makepkg --noconfirm -si && \
-    sudo -u aur yay --afterclean --removemake --save && \
+    sed -i 's/#RemoveMake/RemoveMake/g' /etc/paru.conf && \
     pacman -Qtdq | xargs -r pacman --noconfirm -Rcns && \
     rm -rf /home/aur/.cache && \
     rm -rf /build
